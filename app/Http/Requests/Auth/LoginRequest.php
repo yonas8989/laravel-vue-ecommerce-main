@@ -56,6 +56,7 @@ class LoginRequest extends FormRequest
 
         $user = $this->user();
         $customer = $user->customer;
+        // dd($user);
         if ($customer->status !== CustomerStatus::Active->value) {
             Auth::guard('web')->logout();
             $this->session()->invalidate();

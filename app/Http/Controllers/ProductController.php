@@ -12,6 +12,7 @@ class ProductController extends Controller
     public function index()
     {
         $query = Product::query();
+    
 
         return $this->renderProducts($query);
     }
@@ -30,6 +31,7 @@ class ProductController extends Controller
 
     public function view(Product $product)
     {
+        dd($product);
         return view('product.view', ['product' => $product]);
     }
 
