@@ -1,49 +1,28 @@
-# Laravel E-commerce Website
-E-commerce application built with Laravel, Vue.js, Tailwind.css and Alpine.js. <br>
+# 🛍️ E-commerce Platform  
 
-> If you want to see every single step how this E-commerce application is build and learn how to build your own Full Stack applications, check my website [thecodeholic.com](https://thecodeholic.com)
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white) 
+![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)  
+A **modern E-commerce platform** built with **Vue.js** (frontend) and **Laravel** (backend) for a seamless shopping experience.  
 
-## Demo
-Admin Panel: https://admin.lcommerce.net
-```
-Email: admin@example.com
-Password: admin123
-```
+## ✨ Features  
+✅ User Authentication (Login/Register)  
+✅ Product Management (Admin Panel)  
+✅ Cart & Checkout System  
+✅ Payment Gateway Integration (Stripe/PayPal)  
+✅ Order History & Tracking  
+✅ Reviews & Ratings  
+✅ API-based Communication (Laravel Sanctum)  
 
-Website: https://lcommerce.net
+## 🏗 Tech Stack  
+- **Frontend:** Vue.js, Vue Router, Pinia/Vuex, Tailwind CSS  
+- **Backend:** Laravel, Laravel Sanctum (for API authentication)  
+- **Database:** MySQL  
+- **Payment Integration:** Stripe, PayPal  
+- **Other Libraries:** Axios, Vue Toastification  
 
-```
-Email: user1@example.com
-Password: useruser1
+## 🚀 Installation  
 
-
-Email: user2@example.com
-Password: useruser2
-```
-
-## Installation 
-Make sure you have environment setup properly. You will need MySQL, PHP8.1, Node.js and composer.
-
-### Install Laravel Website + API
-1. Download the project (or clone using GIT)
-2. Copy `.env.example` into `.env` and configure database credentials
-3. Navigate to the project's root directory using terminal
-4. Run `composer install`
-5. Set the encryption key by executing `php artisan key:generate --ansi`
-6. Run migrations `php artisan migrate --seed`
-7. Start local server by executing `php artisan serve`
-8. Open new terminal and navigate to the project root directory
-9. Run `npm install`
-10. Run `npm run dev` to start vite server for Laravel frontend
-
-### Install Vue.js Admin Panel
-1. Navigate to `backend` folder
-2. Run `npm install`
-3. Copy `backend/.env.example` into `backend/.env`
-4. Make sure `VITE_API_BASE_URL` key in `backend/.env` is set to your Laravel API host (Default: http://localhost:8000)
-5. Run `npm run dev`
-6. Open Vue.js Admin Panel in browser and login with
-    ```
-    admin@example.com
-    admin123
-    ```
+### 1️⃣ Clone the Repository  
+```sh
+git clone https://github.com/your_username/ecommerce-platform.git
+cd ecommerce-platform
