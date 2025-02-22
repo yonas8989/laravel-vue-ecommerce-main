@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Api;
-
 use App\Enums\AddressType;
 use App\Enums\CustomerStatus;
 use App\Http\Controllers\Controller;
@@ -15,21 +13,14 @@ use App\Models\CustomerAddress;
 use http\Env\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $perPage = request('per_page', 10);
         $search = request('search', '');
         $sortField = request('sort_field', 'updated_at');
         $sortDirection = request('sort_direction', 'desc');
-
         $query = Customer::query()
             ->with('user')
             ->orderBy("customers.$sortField", $sortDirection);
@@ -40,30 +31,14 @@ class CustomerController extends Controller
                 ->orWhere('users.email', 'like', "%{$search}%")
                 ->orWhere('customers.phone', 'like', "%{$search}%");
         }
-
         $paginator = $query->paginate($perPage);
 
         return CustomerListResource::collection($paginator);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Customer $customer
-     * @return \Illuminate\Http\Response
-     */
     public function show(Customer $customer)
     {
         return new CustomerResource($customer);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Customer     $customer
-     * @return \Illuminate\Http\Response
-     */
     public function update(CustomerRequest $request, Customer $customer)
     {
         $customerData = $request->validated();
@@ -75,7 +50,6 @@ class CustomerController extends Controller
         DB::beginTransaction();
         try {
             $customer->update($customerData);
-
             if ($customer->shippingAddress) {
                 $customer->shippingAddress->update($shippingData);
             } else {
@@ -83,7 +57,6 @@ class CustomerController extends Controller
                 $shippingData['type'] = AddressType::Shipping->value;
                 CustomerAddress::create($shippingData);
             }
-
             if ($customer->billingAddress) {
                 $customer->billingAddress->update($billingData);
             } else {
@@ -93,29 +66,17 @@ class CustomerController extends Controller
             }
         } catch (\Exception $e) {
             DB::rollBack();
-
             Log::critical(__METHOD__ . ' method does not work. '. $e->getMessage());
             throw $e;
         }
-
         DB::commit();
-
         return new CustomerResource($customer);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Customer $customer
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Customer $customer)
     {
         $customer->delete();
-
         return response()->noContent();
     }
-
     public function countries()
     {
         return CountryResource::collection(Country::query()->orderBy('name', 'asc')->get());

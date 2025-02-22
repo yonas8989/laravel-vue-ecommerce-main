@@ -28,30 +28,24 @@ class DashboardController extends Controller
     {
         return Product::where('published', '=', 1)->count();
     }
-
     public function paidOrders()
     {
         $fromDate = $this->getFromDate();
         $query = Order::query()->where('status', OrderStatus::Paid->value);
-
         if ($fromDate) {
             $query->where('created_at', '>', $fromDate);
         }
-
         return $query->count();
     }
-
     public function totalIncome()
     {
         $fromDate = $this->getFromDate();
         $query = Order::query()->where('status', OrderStatus::Paid->value);
-
         if ($fromDate) {
             $query->where('created_at', '>', $fromDate);
         }
         return round($query->sum('total_price'));
     }
-
     public function ordersByCountry()
     {
         $fromDate = $this->getFromDate();
@@ -62,16 +56,12 @@ class DashboardController extends Controller
             ->join('countries AS c', 'a.country_code', '=', 'c.code')
             ->where('status', OrderStatus::Paid->value)
             ->where('a.type', AddressType::Billing->value)
-            ->groupBy('c.name')
-            ;
-
+            ->groupBy('c.name');
         if ($fromDate) {
             $query->where('orders.created_at', '>', $fromDate);
         }
-
         return $query->get();
     }
-
     public function latestCustomers()
     {
         return Customer::query()
@@ -82,7 +72,6 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
     }
-
     public function latestOrders()
     {
         return OrderResource::collection(
